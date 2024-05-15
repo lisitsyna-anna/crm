@@ -1,3 +1,5 @@
+import './globals.css';
+
 const RootLayout = ({
   children,
 }: Readonly<{
