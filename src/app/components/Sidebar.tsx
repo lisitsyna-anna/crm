@@ -8,7 +8,6 @@ import SidebarItem from './SidebarItem';
 const Sidebar = () => {
   const router = useRouter();
   const pathName = usePathname();
-  console.log('pathName', pathName);
 
   const handleExitClick = () => router.push('/');
 
