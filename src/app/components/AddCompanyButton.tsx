@@ -1,26 +1,13 @@
 'use client';
 
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
 import Button from './Button';
-import { FastField } from 'formik';
-
-const CompanyFormModal = dynamic(() => import('./CompanyFormModal'), {
-  ssr: false,
-});
+import { useRouter } from 'next/navigation';
 
 const AddCompanyButton = () => {
-  const [isModalShow, setIsModalShow] = useState(false);
+  const router = useRouter();
 
   return (
-    <>
-      <Button onClick={() => setIsModalShow(true)}>Add Company</Button>
-      <CompanyFormModal
-        show={isModalShow}
-        onClose={() => setIsModalShow(false)}
-        onSubmit={() => console.log('Submit company form')}
-      />
-    </>
+    <Button onClick={() => router.push('/companies/new')}>Add Company</Button>
   );
 };
 

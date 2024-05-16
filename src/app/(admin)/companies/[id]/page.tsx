@@ -4,7 +4,7 @@ import Header from '@/app/components/Header';
 import { notFound } from 'next/navigation';
 import { useEffect } from 'react';
 
-interface CompanyPageProps {
+export interface CompanyPageProps {
   params: {
     id: string;
   };
@@ -20,9 +20,9 @@ const CompanyPage: React.FC<CompanyPageProps> = ({ params }) => {
   }, [params.id]);
 
   return (
-    <>
-      <Header>Companies</Header>
-    </>
+    <div className="py-6 px-10">
+      <p>{`Information about company (${params.id})`}</p>
+    </div>
   );
 };
 
