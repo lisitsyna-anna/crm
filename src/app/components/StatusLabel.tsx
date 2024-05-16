@@ -6,6 +6,13 @@ interface StatusLabelProps {
   disabled?: boolean;
 }
 
+const labelByStatus = {
+  [CompanyStatus.Active]: 'Active',
+  [CompanyStatus.NotActive]: 'Not Active',
+  [CompanyStatus.Pending]: 'Pending',
+  [CompanyStatus.Suspended]: 'Suspended',
+};
+
 const StatusLabel: React.FC<StatusLabelProps> = ({
   status,
   disabled = false,
@@ -23,7 +30,7 @@ const StatusLabel: React.FC<StatusLabelProps> = ({
     )}
   >
     <span className="w-1 h-1 rounded-full bg-current" />
-    {status}
+    {labelByStatus[status]}
   </div>
 );
 
