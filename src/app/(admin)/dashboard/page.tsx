@@ -1,7 +1,5 @@
-const DashboardPage = () => (
-  <main>
-    <h1 className="text-xl">Dashboard</h1>
-  </main>
-);
+import Header from '@/app/components/Header';
+
+const DashboardPage = () => <Header>Dashboard</Header>;
 
 export default DashboardPage;
