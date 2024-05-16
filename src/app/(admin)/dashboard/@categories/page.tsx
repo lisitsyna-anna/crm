@@ -8,12 +8,13 @@ const CategoriesPage = async () => {
   return (
     <DashboardCard label="Categories of companies">
       <div className="grid grid-cols-12 gap-3 pb-5 px-5">
-        {categories.map(({ categoryId, categoryTitle, count }) => (
+        {categories.map(({ categoryId, categoryTitle, count }, index) => (
           <div key={categoryId} className="col-span-3">
             <StatCard
               type={StatCardType.Dark}
               label={categoryTitle}
               counter={count}
+              isTextLime={(index + 1) % 2 === 0}
             />
           </div>
         ))}

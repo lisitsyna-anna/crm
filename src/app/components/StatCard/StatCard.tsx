@@ -10,9 +10,15 @@ export interface StatCardProps {
   type: StatCardType;
   label: string;
   counter: number;
+  isTextLime?: boolean;
 }
 
-const StatCard = ({ type, label, counter }: StatCardProps) => (
+const StatCard: React.FC<StatCardProps> = ({
+  type,
+  label,
+  counter,
+  isTextLime = false,
+}) => (
   <div
     className={clsx(
       'rounded',
@@ -35,7 +41,14 @@ const StatCard = ({ type, label, counter }: StatCardProps) => (
     >
       {label}
     </p>
-    <p className="text-6xl font-semibold">{counter}</p>
+    <p
+      className={clsx(
+        'text-6xl font-semibold',
+        type === StatCardType.Dark && isTextLime && 'text-lime-200',
+      )}
+    >
+      {counter}
+    </p>
   </div>
 );
 
