@@ -9,6 +9,10 @@ const CategoriesPage = async () => {
 
   const counts = getCountById(companies, 'categoryId');
 
+  console.log('categories', categories);
+  console.log('companies', companies);
+  console.log('counts', counts);
+
   return (
     <DashboardCard label="Categories of companies">
       <div className="grid grid-cols-12 gap-3 pb-5 px-5">
@@ -17,7 +21,7 @@ const CategoriesPage = async () => {
             <StatCard
               type={StatCardType.Dark}
               label={title}
-              counter={counts[id] || 0}
+              counter={10}
               isTextLime={(index + 1) % 2 === 0}
             />
           </div>
