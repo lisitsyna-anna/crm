@@ -1,16 +1,9 @@
 import Modal, { ModalProps } from './Modal';
-import CompanyForm, { CompanyFormProps } from './CompanyForm';
+import CompanyForm from './CompanyForm';
 
-interface CompanyFormModalProps extends ModalProps {
-  onSubmit: CompanyFormProps['onSubmit'];
-}
-
-const CompanyFormModal: React.FC<CompanyFormModalProps> = ({
-  onSubmit,
-  ...rest
-}) => (
-  <Modal {...rest}>
-    <CompanyForm onSubmit={onSubmit} />
+const CompanyFormModal: React.FC<ModalProps> = ({ onClose, ...rest }) => (
+  <Modal onClose={onClose} {...rest}>
+    <CompanyForm onSubmit={() => onClose()} />
   </Modal>
 );
 

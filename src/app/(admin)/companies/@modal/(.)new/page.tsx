@@ -1,17 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import CompanyForm from '@/app/components/CompanyForm';
-import Modal from '@/app/components/Modal';
+import CompanyFormModal from '@/app/components/CompanyFormModal';
 
-const InterceptModalPage = () => {
+const InterceptAddNewCompanyPage = () => {
   const router = useRouter();
 
-  return (
-    <Modal show={true} onClose={() => router.back()}>
-      <CompanyForm onSubmit={console.log} />
-    </Modal>
-  );
+  return <CompanyFormModal show={true} onClose={() => router.back()} />;
 };
 
-export default InterceptModalPage;
+export default InterceptAddNewCompanyPage;

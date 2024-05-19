@@ -14,7 +14,9 @@ const AddPromotionButton: React.FC<AddPromotionButtonProps> = ({
 
   return (
     <Button
-      onClick={() => router.push(`/companies/${companyId}/new-promotion`)}
+      onClick={() =>
+        router.push(`/companies/${companyId}/new-promotion`, { scroll: false })
+      }
     >
       Add promotions
     </Button>
