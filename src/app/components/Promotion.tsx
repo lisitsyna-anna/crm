@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import { Promotion } from '@/types';
+import { Promotion as PromotionType } from '@/types';
 
 export interface PromotionProps {
-  promotion: Promotion;
+  promotion: PromotionType;
 }
 
 const Promotion: React.FC<PromotionProps> = ({ promotion }) => (
