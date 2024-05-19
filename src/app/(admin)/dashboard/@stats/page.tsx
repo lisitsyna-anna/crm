@@ -9,7 +9,11 @@ const labelByStat = {
 };
 
 const StatsPage = async () => {
-  const stats = await getSummaryStats();
+  const stats = await getSummaryStats({
+    next: {
+      revalidate: 5,
+    },
+  });
 
   return (
     <div className="grid grid-cols-12 gap-5">

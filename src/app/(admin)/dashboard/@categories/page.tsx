@@ -1,19 +1,23 @@
 import DashboardCard from '@/app/components/DashboardCard';
 import StatCard, { StatCardType } from '@/app/components/StatCard/StatCard';
-import { getSummaryCategories } from '@/lib/api';
+import { getCategories, getCompanies } from '@/lib/api';
+import { getCountById } from '@/lib/utils/getCountById';
 
 const CategoriesPage = async () => {
-  const categories = await getSummaryCategories();
+  const categories = await getCategories();
+  const companies = await getCompanies();
+
+  const counts = getCountById(companies, 'categoryId');
 
   return (
     <DashboardCard label="Categories of companies">
       <div className="grid grid-cols-12 gap-3 pb-5 px-5">
-        {categories.map(({ categoryId, categoryTitle, count }, index) => (
-          <div key={categoryId} className="col-span-3">
+        {categories.map(({ id, title }, index) => (
+          <div key={id} className="col-span-3">
             <StatCard
               type={StatCardType.Dark}
-              label={categoryTitle}
-              counter={count}
+              label={title}
+              counter={counts[id] || 0}
               isTextLime={(index + 1) % 2 === 0}
             />
           </div>

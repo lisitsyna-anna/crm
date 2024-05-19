@@ -1,20 +1,26 @@
-'use client';
-
 import Header from '@/app/components/Header';
-import { notFound } from 'next/navigation';
-import { useEffect } from 'react';
-import { CompanyPageProps } from '../../[id]/page';
+import { getQueryClient } from '@/lib/utils/getQueryClient';
+import { getCompany } from '@/lib/api';
+import { Company } from '@/types';
 
-const CompanyHeader: React.FC<CompanyPageProps> = ({ params }) => {
-  useEffect(() => {
-    const id = Number.parseInt(params.id);
+interface CompanyHeaderProps {
+  params: {
+    id: string;
+  };
+}
 
-    if (Number.isNaN(id)) {
-      notFound();
-    }
-  }, [params.id]);
+const CompanyHeader: React.FC<CompanyHeaderProps> = async ({ params }) => {
+  const queryClient = getQueryClient();
 
-  return <Header>{`Company (${params.id})`}</Header>;
+  await queryClient.prefetchQuery({
+    queryKey: ['companies', params.id],
+    queryFn: () => getCompany(params.id, { cache: 'no-store' }),
+    staleTime: 10 * 1000,
+  });
+
+  const company = queryClient.getQueryData(['companies', params.id]) as Company;
+
+  return <Header>{company?.title}</Header>;
 };
 
 export default CompanyHeader;
