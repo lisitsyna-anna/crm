@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface DashboardCardSkeletonProps {
   children: React.ReactNode;
 }
