@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { CategoryType } from './category';
-import { CountryType } from './country';
+import Category, { CategoryType } from './category';
+import Country, { CountryType } from './country';
 
 export enum CompanyStatus {
   Active = 'active',
@@ -54,12 +54,12 @@ const companySchema = new mongoose.Schema<CompanyType>(
     },
     category: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Category',
+      ref: Category.modelName,
       required: true,
     },
     country: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Country',
+      ref: Country.modelName,
       required: true,
     },
     avatar: {

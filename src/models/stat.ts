@@ -30,6 +30,6 @@ const statSchema = new mongoose.Schema<StatType>(
 );
 
 const Stat =
-  mongoose.models.Stat || mongoose.model<StatType>('Stat', statSchema);
+  mongoose.models?.Stat || mongoose.model<StatType>('Stat', statSchema);
 
 export default Stat;

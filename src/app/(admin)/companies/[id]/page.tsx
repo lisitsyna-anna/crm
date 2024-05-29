@@ -5,8 +5,6 @@ import { getQueryClient } from '@/lib/utils/getQueryClient';
 import { CompanyType } from '@/models/company';
 import CompanyInfo from '@/app/components/CompanyInfo';
 import CompanyPromotions from '@/app/components/CompanyPromotions';
-import '@/models/category';
-import '@/models/country';
 
 interface CompanyPageProps {
   params: {

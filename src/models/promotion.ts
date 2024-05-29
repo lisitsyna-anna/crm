@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { CompanyType } from './company';
+import Company, { CompanyType } from './company';
 
 export interface PromotionType extends mongoose.Document {
   title: string;
@@ -29,7 +29,7 @@ const promotionSchema = new mongoose.Schema<PromotionType>(
     },
     company: {
       type: mongoose.Schema.ObjectId,
-      ref: 'Company',
+      ref: Company.modelName,
       required: true,
     },
   },
@@ -37,7 +37,7 @@ const promotionSchema = new mongoose.Schema<PromotionType>(
 );
 
 const Promotion =
-  mongoose.models.Promotion ||
+  mongoose.models?.Promotion ||
   mongoose.model<PromotionType>('Promotion', promotionSchema);
 
 export default Promotion;

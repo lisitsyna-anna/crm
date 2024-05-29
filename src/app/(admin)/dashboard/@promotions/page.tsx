@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 
 // TODO: Add virtualisation
 const PromotionsPage = () => {
-  const { data: promotions } = useQuery({
+  const { data: promotions, isLoading } = useQuery({
     queryKey: ['promotions'],
     queryFn: () => getPromotions({ cache: 'no-store' }),
     staleTime: 10 * 1000,
@@ -17,7 +17,7 @@ const PromotionsPage = () => {
 
   return (
     <DashboardCard label="Promotions">
-      {promotions && promotions.length > 0 ? (
+      {promotions && promotions.length > 0 && (
         <SummaryTable
           headers={
             <>
@@ -37,7 +37,8 @@ const PromotionsPage = () => {
             ),
           )}
         </SummaryTable>
-      ) : (
+      )}
+      {!promotions && !isLoading && (
         <p className="px-5">There are no promotions yet.</p>
       )}
     </DashboardCard>

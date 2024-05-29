@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { CompanyType } from './company';
+import Company, { CompanyType } from './company';
 
 export interface SaleType extends mongoose.Document {
   company: mongoose.Schema.Types.ObjectId;
@@ -15,7 +15,7 @@ const saleSchema = new mongoose.Schema<SaleType>(
   {
     company: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Company',
+      ref: Company.modelName,
       required: true,
     },
     sold: {
@@ -31,6 +31,6 @@ const saleSchema = new mongoose.Schema<SaleType>(
 );
 
 const Sale =
-  mongoose.models.Sale || mongoose.model<SaleType>('Sale', saleSchema);
+  mongoose.models?.Sale || mongoose.model<SaleType>('Sale', saleSchema);
 
 export default Sale;
