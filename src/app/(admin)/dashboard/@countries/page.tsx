@@ -5,8 +5,8 @@ import { getCountries, getCompanies } from '@/lib/api';
 import { getCountById } from '@/lib/utils/getCountById';
 
 const CountriesPage = async () => {
-  const countries = await getCountries();
-  const companies = await getCompanies();
+  const countries = await getCountries({ cache: 'no-store' });
+  const companies = await getCompanies({ cache: 'no-store' });
   const counts = getCountById(companies, 'country', '_id');
 
   const sortedCountries = countries

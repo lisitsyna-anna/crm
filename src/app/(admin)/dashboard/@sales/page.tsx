@@ -6,7 +6,7 @@ import { getSummarySales } from '@/lib/api';
 
 // TODO: Add virtualisation
 const SalesPage = async () => {
-  const sales = await getSummarySales();
+  const sales = await getSummarySales({ cache: 'no-store' });
 
   return (
     <DashboardCard label="Sales details">
