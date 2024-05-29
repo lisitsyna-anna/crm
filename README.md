@@ -1,4 +1,4 @@
-# [![TruScape](./public//icons//logo.svg)](https://crm-omega-gules.vercel.app) TruScape
+# [![TruScape](./public//icons//logo.svg)](https://crm-omega-gules.vercel.app)
 
 ## Getting Started
 
