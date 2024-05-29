@@ -13,7 +13,7 @@ import { Document } from 'mongoose';
  * @returns {string} The full URL constructed from the base URL followed by the provided path segments.
  */
 const buildUrl = (...paths: string[]) =>
-  `http://localhost:3000/api/${paths.join('/')}`;
+  `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/${paths.join('/')}`;
 
 /**
  * Converts an object containing query parameters into a URL-encoded string.
@@ -43,26 +43,21 @@ const sendRequest = async <T>(url: string, init?: RequestInit) => {
   return (await res.json()) as T;
 };
 
-// WORk
 export const getSummaryStats = (init?: RequestInit) =>
   sendRequest<StatType>(buildUrl('summary-stats'), init);
 
-// WORK
 export const getSummarySales = (init?: RequestInit) =>
   sendRequest<PopulatedSaleType[]>(buildUrl('summary-sales'), init);
 
 export const getCountries = (init?: RequestInit) =>
   sendRequest<CountryType[]>(buildUrl('countries'), init);
 
-// WORK
 export const getCategories = (init?: RequestInit) =>
   sendRequest<CategoryType[]>(buildUrl('categories'), init);
 
-// WORK
 export const getCompanies = (init?: RequestInit) =>
   sendRequest<PopulatedCompanyType[]>(buildUrl('companies'), init);
 
-// WORK
 export const getCompany = (id: string, init?: RequestInit) =>
   sendRequest<PopulatedCompanyType>(buildUrl('companies', id), init);
 
