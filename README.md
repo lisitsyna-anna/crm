@@ -16,6 +16,7 @@ To install and run the TruScape locally, follow these steps:
 - Next.js (App Router, Parallel Routes, Intercepting Routes, Route Handlers)
 - TypeScript
 - Tailwind
+- TanStack Query
 - Formik
 - MongoDB
 - Mongoose
