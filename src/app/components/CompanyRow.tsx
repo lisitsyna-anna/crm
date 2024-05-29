@@ -1,20 +1,20 @@
 import Image from 'next/image';
 import clsx from 'clsx';
 import StatusLabel from './StatusLabel';
-import { Company } from '@/types/company';
+import { PopulatedCompanyType } from '@/models/company';
 import Link from 'next/link';
 
 export interface CompanyRowProps {
-  company: Company;
+  company: PopulatedCompanyType;
 }
 
 const CompanyRow: React.FC<CompanyRowProps> = ({ company }) => (
   <tr className="h-14 text-center text-gray-900 bg-white">
     <td className="text-xs font-medium text-blue-700 rounded-l border-l-4 border-blue-700">
-      {company.categoryTitle}
+      {company.category.title}
     </td>
     <td>
-      <Link href={`/companies/${company.id}`}>{company.title}</Link>
+      <Link href={`/companies/${company._id}`}>{company.title}</Link>
     </td>
     <td>
       <StatusLabel status={company.status} />
@@ -37,7 +37,7 @@ const CompanyRow: React.FC<CompanyRowProps> = ({ company }) => (
         </span>
       </div>
     </td>
-    <td>{company.countryTitle}</td>
+    <td>{company.country.title}</td>
     <td className="rounded-r">
       {new Date(company.joinedDate).toLocaleDateString('uk-UA')}
     </td>

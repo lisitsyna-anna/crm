@@ -8,7 +8,12 @@ export interface InputFieldProps
   label?: string;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ label, id, ...rest }) => (
+const InputField: React.FC<InputFieldProps> = ({
+  label,
+  id,
+  value,
+  ...rest
+}) => (
   <div className="flex flex-col">
     {label && (
       <label htmlFor={id} className="mb-2 text-base text-gray-900">

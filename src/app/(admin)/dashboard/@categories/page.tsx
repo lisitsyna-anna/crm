@@ -9,17 +9,17 @@ const CategoriesPage = async () => {
   const categories = await getCategories();
   const companies = await getCompanies();
 
-  const counts = getCountById(companies, 'categoryId');
+  const counts = getCountById(companies, 'category', '_id');
 
   return (
     <DashboardCard label="Categories of companies">
       <div className="grid grid-cols-12 gap-3 pb-5 px-5">
-        {categories.map(({ id, title }) => (
-          <div key={id} className="col-span-3">
+        {categories.map(({ _id, title }) => (
+          <div key={_id as string} className="col-span-3">
             <StatCard
               type={StatCardType.Dark}
               label={title}
-              counter={counts[id] || 0}
+              counter={counts[_id as string] || 0}
             />
           </div>
         ))}

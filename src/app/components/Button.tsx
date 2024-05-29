@@ -5,6 +5,8 @@ import clsx from 'clsx';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   disabled?: boolean;
 }
+
+// TODO: Add loading
 const Button: React.FC<ButtonProps> = ({ disabled = false, ...rest }) => (
   <button
     {...rest}

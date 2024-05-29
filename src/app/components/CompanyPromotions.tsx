@@ -9,20 +9,26 @@ export interface CompanyPromotionsProps {
 }
 
 const CompanyPromotions: React.FC<CompanyPromotionsProps> = ({ companyId }) => {
-  const { data } = useQuery({
+  const { data: promotions } = useQuery({
     queryKey: ['promotions', companyId],
     queryFn: () => getPromotions({ companyId }),
     staleTime: 10 * 1000,
   });
 
   return (
-    <div className="grid grid-cols-12 gap-5">
-      {data?.map((promotion) => (
-        <div key={promotion.id} className="col-span-4">
-          <Promotion promotion={promotion} />
+    <>
+      {promotions && promotions.length > 0 ? (
+        <div className="grid grid-cols-12 gap-5">
+          {promotions.map((promotion) => (
+            <div key={promotion._id as string} className="col-span-4">
+              <Promotion promotion={promotion} />
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      ) : (
+        <p>There are no promotions yet</p>
+      )}
+    </>
   );
 };
 

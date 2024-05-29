@@ -1,13 +1,10 @@
-import {
-  Category,
-  Company,
-  Country,
-  Promotion,
-  SummarySales,
-  SummaryStats,
-} from '@/types';
-
-const PROJECT_TOKEN = process.env.NEXT_PUBLIC_PROJECT_TOKEN;
+import { CategoryType } from '@/models/category';
+import { CompanyType, PopulatedCompanyType } from '@/models/company';
+import { CountryType } from '@/models/country';
+import { StatType } from '@/models/stat';
+import { PopulatedSaleType } from '@/models/sale';
+import { PopulatedPromotionType, PromotionType } from '@/models/promotion';
+import { Document } from 'mongoose';
 
 /**
  * Constructs a URL using an array of path segments.
@@ -16,7 +13,7 @@ const PROJECT_TOKEN = process.env.NEXT_PUBLIC_PROJECT_TOKEN;
  * @returns {string} The full URL constructed from the base URL followed by the provided path segments.
  */
 const buildUrl = (...paths: string[]) =>
-  `https://${PROJECT_TOKEN}.mockapi.io/api/v1/${paths.join('/')}`;
+  `http://localhost:3000/api/${paths.join('/')}`;
 
 /**
  * Converts an object containing query parameters into a URL-encoded string.
@@ -40,44 +37,49 @@ const stringifyQueryParams = (params: Record<string, string>) =>
 const sendRequest = async <T>(url: string, init?: RequestInit) => {
   const res = await fetch(url, init);
   if (!res.ok) {
-    throw new Error(await res.text());
+    throw new Error('Error in sendRequest');
   }
 
   return (await res.json()) as T;
 };
 
+// WORk
 export const getSummaryStats = (init?: RequestInit) =>
-  sendRequest<SummaryStats>(buildUrl('summary-stats', '1'), init);
+  sendRequest<StatType>(buildUrl('summary-stats'), init);
 
+// WORK
 export const getSummarySales = (init?: RequestInit) =>
-  sendRequest<SummarySales[]>(buildUrl('summary-sales'), init);
+  sendRequest<PopulatedSaleType[]>(buildUrl('summary-sales'), init);
 
 export const getCountries = (init?: RequestInit) =>
-  sendRequest<Country[]>(buildUrl('countries'), init);
+  sendRequest<CountryType[]>(buildUrl('countries'), init);
 
+// WORK
 export const getCategories = (init?: RequestInit) =>
-  sendRequest<Category[]>(buildUrl('categories'), init);
+  sendRequest<CategoryType[]>(buildUrl('categories'), init);
 
+// WORK
 export const getCompanies = (init?: RequestInit) =>
-  sendRequest<Company[]>(buildUrl('companies'), init);
+  sendRequest<PopulatedCompanyType[]>(buildUrl('companies'), init);
 
+// WORK
 export const getCompany = (id: string, init?: RequestInit) =>
-  sendRequest<Company>(buildUrl('companies', id), init);
+  sendRequest<PopulatedCompanyType>(buildUrl('companies', id), init);
 
 export const getPromotions = async (
   params: Record<string, string> = {},
   init?: RequestInit,
 ) =>
-  sendRequest<Promotion[]>(
+  sendRequest<PopulatedPromotionType[]>(
     `${buildUrl('promotions')}?${stringifyQueryParams(params)}`,
     init,
   );
 
 export const createCompany = async (
-  data: Omit<Company, 'id' | 'hasPromotions'>,
+  data: Omit<CompanyType, keyof Document | 'hasPromotions'>,
   init?: RequestInit,
 ) =>
-  sendRequest<Company>(buildUrl('companies'), {
+  sendRequest<CompanyType>(buildUrl('companies'), {
     ...init,
     method: 'POST',
     body: JSON.stringify(data),
@@ -88,10 +90,10 @@ export const createCompany = async (
   });
 
 export const createPromotion = async (
-  data: Omit<Promotion, 'id'>,
+  data: Omit<PromotionType, keyof Document>,
   init?: RequestInit,
 ) =>
-  sendRequest<Promotion>(buildUrl('promotions'), {
+  sendRequest<PromotionType>(buildUrl('promotions'), {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {

@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { CompanyStatus } from '@/types/company';
+import { CompanyStatus } from '@/models/company';
 
 interface StatusLabelProps {
   status: CompanyStatus;

@@ -7,24 +7,31 @@ import { getCountById } from '@/lib/utils/getCountById';
 const CountriesPage = async () => {
   const countries = await getCountries();
   const companies = await getCompanies();
+  const counts = getCountById(companies, 'country', '_id');
 
-  const counts = getCountById(companies, 'countryId');
+  const sortedCountries = countries
+    .map((country) => ({
+      ...country,
+      count: counts[country._id as string] || 0,
+    }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 5);
 
   return (
     <DashboardCard label="Countries of companies">
       <div className="flex items-end pb-5 px-5 gap-2">
         <div>
-          {countries.map(({ id, title }) => (
+          {sortedCountries.map(({ _id, title }) => (
             <p
-              key={id}
+              key={_id as string}
               className={clsx(
-                'text-sm text-gray-900 font-medium',
+                'text-xs text-gray-900 font-medium',
                 'before:inline-block before:w-2 before:h-2 before:rounded-full before:align-middle before:mr-2 before:bg-purple-200',
               )}
-            >{`${title} - ${counts[id] || 0}`}</p>
+            >{`${title} - ${counts[_id as string] || 0}`}</p>
           ))}
         </div>
-        <Image width={395} height={262} src="/images/world.svg" alt="world" />
+        <Image width={380} height={262} src="/images/world.svg" alt="world" />
       </div>
     </DashboardCard>
   );

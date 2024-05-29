@@ -1,12 +1,13 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Form, Formik } from 'formik';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createPromotion, getCompany } from '@/lib/api';
-import { Promotion } from '@/types';
 import Button from './Button';
 import InputField from './InputField';
 import LogoUploader from './LogoUploader';
+import { PromotionType } from '@/models/promotion';
 
 export type PromotionFieldValues = {
   title: string;
@@ -25,11 +26,13 @@ const initialValues: PromotionFieldValues = {
   discount: '',
 };
 
+// TODO: Add validation
 const PromotionForm: React.FC<PromotionFormProps> = ({
   companyId,
   onSubmit,
 }) => {
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const { data: company } = useQuery({
     queryKey: ['companies', companyId],
@@ -51,20 +54,11 @@ const PromotionForm: React.FC<PromotionFormProps> = ({
         exact: true,
       });
 
-      // queryClient.setQueryData<Promotion[]>(
-      //   ['promotions', companyId],
-      //   (oldData) => {
-      //     if (oldData) {
-      //       return oldData.concat(data);
-      //     }
-      //   },
-      // );
+      router.push(`/companies/${companyId}`);
+    },
 
-      // queryClient.setQueryData<Promotion[]>(['promotions'], (oldData) => {
-      //   if (oldData) {
-      //     return oldData.concat(data);
-      //   }
-      // });
+    onError: (error) => {
+      alert(`Error creating promotion: ${error.message}. Try reload the page.`);
     },
   });
 
@@ -76,9 +70,8 @@ const PromotionForm: React.FC<PromotionFormProps> = ({
     await mutateAsync({
       ...values,
       discount: Number(values.discount) || 0,
-      companyId: company.id,
-      companyTitle: company.title,
-    });
+      company: company._id,
+    } as PromotionType);
 
     if (onSubmit) {
       onSubmit(values);

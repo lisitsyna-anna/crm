@@ -31,8 +31,8 @@ const CompanyInfo: React.FC<CompanyInfoProps> = ({ companyId }) => {
       </div>
       <div className="p-7 text-base text-gray-900 bg-gray-100 rounded">
         <p className="pb-5 text-xl font-semibold">About company</p>
-        <p className="pb-3">{`Category: ${company.categoryTitle}`}</p>
-        <p className="pb-3">{`Country: ${company.countryTitle}`}</p>
+        <p className="pb-3">{`Category: ${company.category.title}`}</p>
+        <p className="pb-3">{`Country: ${company.country.title}`}</p>
         <p className="pb-3">{`Joined date: ${new Date(
           company.joinedDate,
         ).toLocaleDateString('uk')}`}</p>

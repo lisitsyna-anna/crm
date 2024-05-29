@@ -1,7 +1,9 @@
 import StatCard, { StatCardType } from '@/app/components/StatCard/StatCard';
 import { getSummaryStats } from '@/lib/api';
+import { StatType } from '@/models/stat';
+import { Document } from 'mongoose';
 
-const labelByStat = {
+const labelByStat: Record<keyof Omit<StatType, keyof Document>, string> = {
   promotions: 'Total promotions',
   categories: 'Total categories',
   newCompanies: 'New companies',
@@ -17,7 +19,9 @@ const StatsPage = async () => {
 
   return (
     <div className="grid grid-cols-12 gap-5">
-      {(Object.keys(labelByStat) as (keyof typeof stats)[]).map((key) => (
+      {(
+        Object.keys(labelByStat) as (keyof Omit<StatType, keyof Document>)[]
+      ).map((key) => (
         <div key={key} className="col-span-3">
           <StatCard
             type={StatCardType.Gradient}

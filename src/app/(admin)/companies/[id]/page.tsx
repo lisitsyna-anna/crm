@@ -2,9 +2,11 @@ import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 import { getCompany, getPromotions } from '@/lib/api';
 import { getQueryClient } from '@/lib/utils/getQueryClient';
-import { Company } from '@/types';
+import { CompanyType } from '@/models/company';
 import CompanyInfo from '@/app/components/CompanyInfo';
 import CompanyPromotions from '@/app/components/CompanyPromotions';
+import '@/models/category';
+import '@/models/country';
 
 interface CompanyPageProps {
   params: {
@@ -28,7 +30,10 @@ const CompanyPage: React.FC<CompanyPageProps> = async ({ params }) => {
     staleTime: 10 * 1000,
   });
 
-  const company = queryClient.getQueryData(['companies', params.id]) as Company;
+  const company = queryClient.getQueryData([
+    'companies',
+    params.id,
+  ]) as CompanyType;
 
   if (!company) {
     notFound();

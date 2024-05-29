@@ -1,7 +1,7 @@
 import Header from '@/app/components/Header';
 import { getQueryClient } from '@/lib/utils/getQueryClient';
 import { getCompany } from '@/lib/api';
-import { Company } from '@/types';
+import { CompanyType } from '@/models/company';
 
 interface CompanyHeaderProps {
   params: {
@@ -18,7 +18,10 @@ const CompanyHeader: React.FC<CompanyHeaderProps> = async ({ params }) => {
     staleTime: 10 * 1000,
   });
 
-  const company = queryClient.getQueryData(['companies', params.id]) as Company;
+  const company = queryClient.getQueryData([
+    'companies',
+    params.id,
+  ]) as CompanyType;
 
   return <Header>{company?.title}</Header>;
 };
